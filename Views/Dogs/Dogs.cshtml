@@ -1,0 +1,136 @@
+﻿@model IEnumerable<TinderForDogs.Models.Dog>
+@{
+    ViewData["Title"] = "Dogs";
+    var dogs = Model.ToList();
+    var firstDog = dogs.FirstOrDefault();
+}
+
+<style>
+    .tinder-main {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tinder-card {
+        width: 370px;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        overflow: hidden;
+        background: #fff;
+        transition: box-shadow 0.2s;
+    }
+
+        .tinder-card img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .tinder-card .card-body {
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+        }
+
+    .tinder-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.2rem;
+    }
+
+        .tinder-actions .btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .sidebar-dogs {
+        background: #f8f9fa;
+        min-height: 80vh;
+        border-radius: 18px;
+        padding: 2rem 1rem;
+    }
+
+        .sidebar-dogs .nav-link {
+            color: #007bff;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+            .sidebar-dogs .nav-link:hover {
+                color: #e83e8c;
+                text-decoration: underline;
+            }
+
+    .messages-area {
+        background: #f8f9fa;
+        min-height: 80vh;
+        border-radius: 18px;
+        padding: 2rem 1.5rem;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row justify-content-center" style="height: 90vh;">
+        <!-- Left Navbar: Dog List -->
+        <nav class="col-md-3 col-lg-2 sidebar-dogs d-flex flex-column align-items-center">
+            <h4 class="text-center mb-4">Dogs</h4>
+            <ul class="nav flex-column w-100">
+                @foreach (var dog in dogs)
+                {
+                    <li class="nav-item mb-2">
+                        <a class="nav-link" href="#">
+                            <strong>@dog.Name</strong> <span class="text-muted">(@dog.Breed)</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="mt-4 w-100 text-center">
+                <button type="submit" class="btn btn-danger w-75">Logout</button>
+            </form>
+        </nav>
+
+        <!-- Main Content: Tinder Card & Messages -->
+        <main class="col-md-6 tinder-main">
+            @if (firstDog != null)
+            {
+                <div class="tinder-card mx-auto">
+                    <img src="~/images/mirelcaine.png" alt="Dog image" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-1">@firstDog.Name</h5>
+                        <div class="text-muted mb-2">@firstDog.Breed, @firstDog.Age y/o, @firstDog.Gender</div>
+                        <p class="card-text">@firstDog.Bio</p>
+                        <div class="tinder-actions">
+                            <button class="btn btn-light border-danger text-danger" title="Dislike">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                            <button class="btn btn-light border-success text-success" title="Like">
+                                <i class="bi bi-heart-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">No dogs available.</div>
+            }
+        </main>
+
+        <!-- Messages Area -->
+        <aside class="col-md-3 messages-area">
+            <h5 class="mb-3">Messages</h5>
+            <div class="alert alert-info mt-3">
+                Messaging coming soon!
+            </div>
+        </aside>
+    </div>
+</div>

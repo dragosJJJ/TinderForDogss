@@ -1,0 +1,23 @@
+# Ignore Visual Studio temporary files, build results, and more
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.app
+*.log
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Other IDE or OS files
+Thumbs.db
+*.DS_Store
