@@ -19,5 +19,6 @@ namespace TinderForDogs.Controllers
             var dogs = await dbContext.Dogs.Include(d => d.Owner).ToListAsync();
             return View("Views/Dogs/Dogs.cshtml", dogs);
         }
+
     }
 }
